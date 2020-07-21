@@ -39,6 +39,20 @@ function getConnection() {
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     return $dbh;
 }
+//Obtener listado personas
+function ObtenerPersonas($response) {
+    $sql = "SELECT nationalId, name, lastname, age, originPlanet, pictureUrl FROM people";
+    try {
+        $stmt = getConnection()->query($sql);
+        $personas = $stmt->fetchAll(PDO::FETCH_OBJ);
+        $db = null;
+        
+        return json_encode($personas);
+    } catch(PDOException $e) {
+        echo '{"error":{"text":'. $e->getMessage() .'}}';
+    }
+}
+
 
 // Run app
 $app->run();

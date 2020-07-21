@@ -68,6 +68,29 @@ function ObtenerPersona($request) {
             ->write('Something went wrong!');
     }
 }
+//Agregar Persona
+function AgregarPersona($request) {
+    $emp = json_decode($request->getBody());
+    $sql = "INSERT INTO people (nationalId, name, lastname, age, originPlanet, pictureUrl) VALUES (:nationalId,:name,:lastname,:age,:originPlanet,:pictureUrl)";
+
+    try {
+        $db = getConnection();
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam("nationalId", $emp->nationalId);
+        $stmt->bindParam("name", $emp->name);
+        $stmt->bindParam("lastname", $emp->lastname);
+        $stmt->bindParam("age", $emp->age);
+        $stmt->bindParam("originPlanet", $emp->originPlanet);
+        $stmt->bindParam("pictureUrl", $emp->pictureUrl);
+        $stmt->execute();
+        $db = null;
+        echo json_encode($emp);
+    } catch(PDOException $e) {
+        echo '{"error":{"text":'. $e->getMessage() .'}}';
+    }
+}
+
+
 
 // Run app
 $app->run();

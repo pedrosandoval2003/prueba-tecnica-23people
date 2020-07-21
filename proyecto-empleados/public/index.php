@@ -111,6 +111,23 @@ function ActualizarPersona($request) {
         echo '{"error":{"text":'. $e->getMessage() .'}}';
     }
 }
+//Eliminar 1 persona
+function EliminarPersona($request) {
+          $nationalId = $request->getAttribute('nationalId');
+      $sql = "DELETE FROM people where nationalId = '$nationalId'";
+  echo $sql;
+  try {
+        $stmt = getConnection()->query($sql);
+        $personas = $stmt->fetchAll(PDO::FETCH_OBJ);
+        $db = null;
+        if ($personas == null) 
+	{ return $response->withStatus(404);  } else {
+        	return json_encode($personas); }
+    }  catch(PDOException $e) {
+        //return $response->withStatus(404);
+    }
+}
+
 
 // Run app
 $app->run();

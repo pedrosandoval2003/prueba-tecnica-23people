@@ -29,5 +29,16 @@ $middleware($app);
 $routes = require __DIR__ . '/../src/routes.php';
 $routes($app);
 
+// MySQL Connection
+function getConnection() {
+    $dbhost="127.0.0.1";
+    $dbuser="sparkit_23people";
+    $dbpass="Asturias.171*";
+    $dbname="sparkit_23people";
+    $dbh = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpass);
+    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    return $dbh;
+}
+
 // Run app
 $app->run();

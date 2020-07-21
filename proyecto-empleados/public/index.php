@@ -52,7 +52,22 @@ function ObtenerPersonas($response) {
         echo '{"error":{"text":'. $e->getMessage() .'}}';
     }
 }
-
+//Obtener 1 persona
+function ObtenerPersona($request) {
+          $nationalId = $request->getAttribute('nationalId');
+      $sql = "SELECT nationalId, name, lastname, age, originPlanet, pictureUrl FROM people where nationalId = '$nationalId';";
+    try {
+        $stmt = getConnection()->query($sql);
+        $personas = $stmt->fetchAll(PDO::FETCH_OBJ);
+        $db = null;
+	if ($personas == null) { return $response->withStatus(404);  }
+        return json_encode($personas);
+    } catch(PDOException $e) {
+                return $response->withStatus(404)
+            ->withHeader('Content-Type', 'text/html')
+            ->write('Something went wrong!');
+    }
+}
 
 // Run app
 $app->run();

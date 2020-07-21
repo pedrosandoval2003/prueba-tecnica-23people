@@ -1,3 +1,4 @@
 /vendor/
 /logs/*
+error_log
 !/logs/README.md

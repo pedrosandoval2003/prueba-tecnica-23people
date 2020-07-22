@@ -39,11 +39,6 @@ function getConnection() {
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     return $dbh;
 }
-
-
-
-
-
 //Obtener listado personas
 function ObtenerPersonas($response) {
     $sql = "SELECT nationalId, name, lastname, age, originPlanet, pictureUrl FROM people";
@@ -98,7 +93,6 @@ function AgregarPersona($request) {
     }
     }
 }
-
 //Actualizar Persona
 function ActualizarPersona($request)
 {
@@ -106,24 +100,14 @@ function ActualizarPersona($request)
         return header("Status: 400 Content-Type should be application/json");
     } else {
         $emp = json_decode($request->getBody());
-
         $nationalId = $request->getAttribute('nationalId');
         $sql = "SELECT nationalId, name, lastname, age, originPlanet, pictureUrl FROM people where nationalId = '$nationalId';";
         $stmt = getConnection()->query($sql);
         $personas = $stmt->fetchAll(PDO::FETCH_OBJ);
-											 
-													 
-										   
-															 
-														 
-						 
         $db = null;
         if ($personas == null) {return header("Status: 404 People Not Found"); }
-
-
-
         $sql = "UPDATE people SET nationalId = :nationalId, name = :name, lastname = :lastname, age = :age, originPlanet = :originPlanet, pictureUrl = :pictureUrl where nationalId = :nationalId";
-
+		
         try {
             $db = getConnection();
             $stmt = $db->prepare($sql);
@@ -163,7 +147,5 @@ function EliminarPersona($request) {
         //return $response->withStatus(404);
     }
 }
-
-
 // Run app
 $app->run();

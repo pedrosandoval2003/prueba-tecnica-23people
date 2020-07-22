@@ -16,7 +16,5 @@ RUN package-cleanup --dupes
 RUN package-cleanup --cleandupes
 RUN yum clean all
 RUN cd /var/www/html/ && git clone https://github.com/pedrosandoval2003/prueba-tecnica-23people.git && mv prueba-tecnica-23people/proyecto-empleados /var/www/html/
-ADD start.sh /var/www/html/prueba-tecnica-23people/scripts/start.sh
-RUN /var/www/html/prueba-tecnica-23people/scripts/start.sh
 
 EXPOSE 80 3306

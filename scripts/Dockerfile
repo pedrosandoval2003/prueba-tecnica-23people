@@ -16,6 +16,10 @@ RUN package-cleanup --dupes
 RUN package-cleanup --cleandupes
 RUN yum clean all
 RUN cd /var/www/html/ && git clone https://github.com/pedrosandoval2003/prueba-tecnica-23people.git && mv prueba-tecnica-23people/proyecto-empleados /var/www/html/
+RUN systemctl start mariadb
+RUN systemctl start httpd
+RUN systemctl enable mariadb
+RUN systemctl enable httpd
 RUN mysql -e "create database sparkit_23people"
 RUN mysql sparkit_23people < /var/www/html/prueba-tecnica-23people/scripts/23peopledb.sql
 RUN mysql -e "grant all privileges on sparkit_23people.* to 'sparkit_23people'@'%' identified by 'Asturias.171*'"

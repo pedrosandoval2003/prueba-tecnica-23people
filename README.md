@@ -10,10 +10,13 @@ MariaDB
 Apache 2.4
 GIT
 VIM
-Linux
+Linux Centos
 
 For project development and control, git + github with 3 branches was used: dev, qa, master.
 
 Continuous delivery will be done through a commit to the master branch, taking it to GCP through Cloud Run & Cloud Build
 
 Once the project is in production, Apigee proxie will be used.
+
+Apigee URL: https://psandoval-eval-test.apigee.net/people
+
